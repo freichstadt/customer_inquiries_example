@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/inquiries_test
+    username: inquiries_test
+    password: local-test-password

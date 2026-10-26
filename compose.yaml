@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: inquiries
+      POSTGRES_USER: inquiries
+      POSTGRES_PASSWORD: local-dev-password
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U inquiries -d inquiries"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  postgres-test:
+    image: postgres:17-alpine
+    profiles: ["test"]
+    environment:
+      POSTGRES_DB: inquiries_test
+      POSTGRES_USER: inquiries_test
+      POSTGRES_PASSWORD: local-test-password
+    ports:
+      - "127.0.0.1:5433:5432"
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U inquiries_test -d inquiries_test"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  postgres-data:

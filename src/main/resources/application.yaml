@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: customer-inquiries
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/inquiries}
+    username: ${DB_USER:inquiries}
+    password: ${DB_PASSWORD:local-dev-password}
+  jooq:
+    sql-dialect: POSTGRES
+  mvc:
+    problemdetails:
+      enabled: true
